@@ -1,6 +1,7 @@
 src/script
 ==========
 
-`convert_data_compact4.py`
+`prepare.py`
 
-Convert npy data to HDF5 format for efficient data loading during training.
+- Convert npy data to HDF5 format for efficient data loading during training.
+- Create list of files

@@ -1,0 +1,42 @@
+data:
+  resize: 512
+  annotation_mean: True
+  normalize: False
+  augment: rotation
+  augment_prob: 0.95
+  positive_only: False
+  y_sym_mode: bilinear
+
+model:
+  encoder: maxvit_tiny_tf_512.in1k
+  pretrained: True
+  decoder_channels: [256, 128, 64, 32, 16]
+  load: 
+  dropout: 0.0
+
+kfold:
+  k: 10
+  folds: 0 # 0,1,2,3,4
+
+train:
+  weight_decay: 1e-2
+  batch_size: 8
+  num_workers: 2
+  loss: bce
+
+val:
+  per_epoch: 1
+  th: 0.50
+
+test:
+  th: 0.47
+
+scheduler:
+  - linear:
+      lr_start: 1e-8
+      lr_end: 8e-4
+      epoch_end: 0.5
+  - cosine:
+      lr_end: 1e-6
+      epoch_end: 40
+
