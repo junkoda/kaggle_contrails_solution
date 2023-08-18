@@ -63,11 +63,11 @@ class Dataset(torch.utils.data.Dataset):
         assert self.annotation_mean in ['mix', True, False]
 
         nc = cfg['data']['resize']
-        # Resize input
         self.resize = nn.Identity() if nc == 256 else T.Resize(nc, antialias=False)
 
-        # Sample y_sym from y with this grid
-        self.grid = create_grid(nc, offset=0.5)
+        assert nc == 1024
+        nc_grid = 512
+        self.grid = create_grid(nc_grid, offset=0.5)  # y_sym is 512 x 512 for unet1024
 
         self.y_sym_mode = cfg['data']['y_sym_mode']
         assert self.y_sym_mode in ['bilinear', 'nearest']
@@ -93,7 +93,7 @@ class Dataset(torch.utils.data.Dataset):
                 elif self.annotation_mean is True:
                     y = f['annotation_mean'][:].astype(np.float32)
                 else:
-                    y = f['y'][:].astype(np.float32)  # (1, H, W)
+                    y = f['y'][:].astype(np.float32)      # (1, H, W)
             else:
                 y = None
 
