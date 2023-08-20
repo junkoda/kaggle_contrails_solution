@@ -1,0 +1,43 @@
+data:
+  resize: 256
+  annotation_mean: True
+  augment: rotation  # False, d4, rotation
+  augment_prob: 0.95
+  positive_only: False
+  y_sym_mode: bilinear
+
+model:
+  encoder: maxvit_tiny_tf_512.in1k  
+  pretrained: True
+  decoder_channels: [256, 128, 64, 32, 32]
+  load: 
+  dropout: 0.0
+
+kfold:
+  k: 10
+  folds: 5  # 5,6,7,8,9
+
+train:
+  weight_decay: 1e-4
+  batch_size: 2   # batch_size 4 x accumulate 2 used in final model with A100 (40GB)
+  accumulate: 4
+  num_workers: 2
+  loss: bce
+  checkpoint: False  # Save model every 10 epochs
+
+val:
+  per_epoch: 1
+  th: 0.45
+
+test:
+  th: 0.45
+
+scheduler:
+  - linear:
+      lr_start: 1e-8
+      lr_end: 8e-4
+      epoch_end: 0.5
+  - cosine:
+      lr_end: 1e-6
+      epoch_end: 40
+
