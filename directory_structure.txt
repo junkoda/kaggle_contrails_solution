@@ -1,0 +1,10 @@
+.
+./input
+./output
+./data
+./src
+./src/script
+./src/unet1024
+./src/unet5
+./src/vit4
+./notebook

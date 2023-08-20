@@ -1,7 +1,6 @@
 data:
   resize: 512
   annotation_mean: True
-  normalize: False
   augment: rotation  # False, d4, rotation
   augment_prob: 0.95
   positive_only: False
@@ -16,7 +15,7 @@ model:
 
 kfold:
   k: 10
-  folds: 9  #5,6,7,8,9
+  folds: 5,7  # 5,6,7,8,9 for 5 fold (submission v47)
 
 train:
   weight_decay: 1e-2

@@ -3,6 +3,7 @@ UNet with single timestep 3-channel image
 """
 import numpy as np
 import os
+import glob
 import json
 import time
 import yaml
@@ -124,8 +125,7 @@ if not os.path.exists(odir):
 odir = '%s/%s' % (odir, name)
 if os.path.exists(odir):
     if (not arg.overwrite) and (not debug):
-        ofilename = '%s/model0.pytorch' % odir
-        if os.path.exists(ofilename):
+        if glob.glob('%s/model*.pytorch' % odir):
             raise FileExistsError(odir)
 else:
     os.mkdir(odir)

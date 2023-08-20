@@ -1,7 +1,6 @@
 data:
   resize: 1024
   annotation_mean: True
-  normalize: False
   augment: rotation
   augment_prob: 0.95
   positive_only: False
