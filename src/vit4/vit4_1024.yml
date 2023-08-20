@@ -1,5 +1,5 @@
 data:
-  resize: 512
+  resize: 512  # 512x512 per time, 1024x1024 for 4 panels 
   annotation_mean: True
   augment: rotation  # False, d4, rotation
   augment_prob: 0.95
