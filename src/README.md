@@ -15,3 +15,6 @@ Source files.
 
 * vit4
   - 4-panel U-Net model using t=1,2,3,4
+
+* submit
+  - inference code https://www.kaggle.com/datasets/junkoda/contrails-src
