@@ -32,7 +32,7 @@ import numpy as np
 import pandas as pd
 import os
 import glob
-import h5py
+import h5py  # type: ignore  # mypy does not recognize h5py
 import json
 import argparse
 from tqdm.auto import tqdm
@@ -40,9 +40,19 @@ from tqdm.auto import tqdm
 competition = 'google-research-identify-contrails-reduce-global-warming'
 
 
-def convert(data_type, input_dir, data_dir):
+def convert(data_type: str, input_dir: str, data_dir: str) -> None:
     """
     Convert original npy data to h5 files
+
+    Args:
+      data_type (str): train or validation
+      input_dir (str): INPUT_DIR in SETTINGS.json
+      data_dir (str):  output directory DATA_DIR in SETTINGS.json
+
+    Input:
+      <INPUT_DIR>/google-research-identify-contrails-reduce-global-warming/<data_type>
+    Output:
+      <DATA_DIR>/compact4/<data_type>/<file_id>.h5
     """
     # Output directory
     odir = '%s/compact4/%s' % (data_dir, data_type)
@@ -94,9 +104,18 @@ def convert(data_type, input_dir, data_dir):
     print(odir, 'written', len(dirs))
 
 
-def create_df(data_type, data_dir):
+def create_df(data_type: str, data_dir: str) -> None:
     """
-    Create data
+    Create and save DataFrame of data file names
+
+    Args:
+      data_type (str): train or validation
+      data_dir (str):  output directory; DATA_DIR in SETTINGS.json
+    
+    Input:
+      <DATA_DIR>/compact4/<data_type>/*.h5
+    Output:
+      <DATA_DIR>/<data_type>.csv
     """
     assert data_type in ['train', 'validation']
     filenames = glob.glob('%s/compact4/%s/*.h5' % (data_dir, data_type))
@@ -119,7 +138,7 @@ def create_df(data_type, data_dir):
     print(ofilename, 'written', len(df))
 
 
-def main():
+def main() -> None:
     # Command-line options
     parser = argparse.ArgumentParser()
     parser.add_argument('data_type', help='train or validation')
