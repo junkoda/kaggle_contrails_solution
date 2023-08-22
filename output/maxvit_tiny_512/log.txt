@@ -1,0 +1,301 @@
+Data 20529 1856
+folds [0, 1, 2, 3, 4] / 10
+weight_decay 0.01
+val threshold 0.50 0.47
+ifold 0: val t 2.6 - 368.8
+augment Compose([
+  RandomRotate90(always_apply=False, p=1),
+  HorizontalFlip(always_apply=False, p=0.5),
+  ShiftScaleRotate(always_apply=False, p=0.75, shift_limit_x=(-0.0625, 0.0625), shift_limit_y=(-0.0625, 0.0625), scale_limit=(-0.19999999999999996, 0.19999999999999996), rotate_limit=(-30, 30), interpolation=1, border_mode=4, value=None, mask_value=None, rotate_method='largest_box'),
+], p=1.0, bbox_params=None, keypoint_params=None, additional_targets={})
+nc 512 Resize(size=512, interpolation=bilinear, max_size=None, antialias=False)
+augment None
+nc 512 Resize(size=512, interpolation=bilinear, max_size=None, antialias=False)
+augment None
+nc 512 Resize(size=512, interpolation=bilinear, max_size=None, antialias=False)
+Encoder channels: maxvit_tiny_tf_512.in1k [64, 64, 128, 256, 512]
+Decoder channels: [256, 128, 64, 32, 16]
+40 epochs
+KFold 0/10
+Epoch        loss          dice  score         lr       time
+Epoch  1.00  0.907  0.229  0.340 0.604 0.572  8.0e-04   1.2  16.7 min
+Epoch  2.00  0.233  0.225  0.351 0.570 0.544  8.0e-04   2.3  33.3 min
+Epoch  3.00  0.230  0.242  0.317 0.593 0.546  7.9e-04   3.5  49.9 min
+Epoch  4.00  0.225  0.217  0.346 0.593 0.534  7.8e-04   4.6  66.5 min
+Epoch  5.00  0.220  0.216  0.382 0.634 0.612  7.7e-04   5.8  83.0 min
+Epoch  6.00  0.216  0.212  0.380 0.644 0.627  7.6e-04   6.9  99.6 min
+Epoch  7.00  0.214  0.211  0.375 0.638 0.608  7.5e-04   8.1 116.2 min
+Epoch  8.00  0.215  0.213  0.384 0.635 0.594  7.3e-04   9.2 132.8 min
+Epoch  9.00  0.210  0.204  0.413 0.663 0.650  7.1e-04  10.4 149.4 min
+Epoch 10.00  0.209  0.206  0.379 0.659 0.643  6.9e-04  11.5 166.0 min
+Epoch 11.00  0.208  0.207  0.417 0.657 0.639  6.7e-04  12.7 182.7 min
+Epoch 12.00  0.206  0.204  0.412 0.670 0.652  6.4e-04  13.8 199.3 min
+Epoch 13.00  0.205  0.204  0.389 0.659 0.636  6.2e-04  15.0 215.8 min
+Epoch 14.00  0.203  0.201  0.398 0.671 0.650  5.9e-04  16.1 232.4 min
+Epoch 15.00  0.202  0.201  0.398 0.675 0.656  5.6e-04  17.2 249.0 min
+Epoch 16.00  0.201  0.203  0.393 0.671 0.644  5.3e-04  18.4 265.5 min
+Epoch 17.00  0.202  0.199  0.413 0.676 0.661  5.0e-04  19.5 282.1 min
+Epoch 18.00  0.200  0.200  0.402 0.677 0.660  4.7e-04  20.7 298.6 min
+Epoch 19.00  0.198  0.201  0.407 0.675 0.666  4.4e-04  21.8 315.2 min
+Epoch 20.00  0.199  0.198  0.425 0.682 0.669  4.1e-04  23.0 331.8 min
+Epoch 21.00  0.198  0.197  0.418 0.682 0.679  3.8e-04  24.1 348.4 min
+Epoch 22.00  0.197  0.196  0.421 0.688 0.672  3.5e-04  25.3 365.0 min
+Epoch 23.00  0.195  0.196  0.413 0.687 0.672  3.1e-04  26.4 381.6 min
+Epoch 24.00  0.195  0.196  0.424 0.686 0.675  2.8e-04  27.6 398.2 min
+Epoch 25.00  0.194  0.196  0.419 0.683 0.675  2.5e-04  28.7 414.8 min
+Epoch 26.00  0.193  0.194  0.431 0.692 0.686  2.2e-04  29.9 431.4 min
+Epoch 27.00  0.192  0.194  0.422 0.692 0.684  2.0e-04  31.0 448.3 min
+Epoch 28.00  0.192  0.193  0.419 0.695 0.685  1.7e-04  32.2 465.1 min
+Epoch 29.00  0.190  0.192  0.433 0.699 0.685  1.4e-04  33.4 481.9 min
+Epoch 30.00  0.191  0.192  0.428 0.699 0.689  1.2e-04  34.5 499.1 min
+Epoch 31.00  0.189  0.192  0.429 0.698 0.685  9.9e-05  35.7 516.4 min
+Epoch 32.00  0.189  0.191  0.442 0.699 0.690  7.9e-05  36.9 533.3 min
+Epoch 33.00  0.188  0.191  0.437 0.701 0.686  6.1e-05  38.0 550.2 min
+Epoch 34.00  0.189  0.191  0.441 0.701 0.687  4.6e-05  39.2 567.0 min
+Epoch 35.00  0.187  0.191  0.433 0.701 0.689  3.2e-05  40.4 583.9 min
+Epoch 36.00  0.187  0.191  0.436 0.702 0.692  2.1e-05  41.5 600.8 min
+Epoch 37.00  0.186  0.191  0.438 0.701 0.691  1.2e-05  42.7 617.7 min
+Epoch 38.00  0.186  0.190  0.438 0.702 0.693  6.0e-06  43.9 634.6 min
+Epoch 39.00  0.188  0.191  0.438 0.702 0.692  2.3e-06  45.0 651.2 min
+Epoch 40.00  0.187  0.191  0.439 0.702 0.692  1.0e-06  46.2 667.8 min
+Score 0.692000 with th 0.4700
+0.5 min and 5.9 MB
+experiments/maxvit_tiny_wd/model0.pytorch written
+ifold 1: val t 2.6 - 368.0
+augment Compose([
+  RandomRotate90(always_apply=False, p=1),
+  HorizontalFlip(always_apply=False, p=0.5),
+  ShiftScaleRotate(always_apply=False, p=0.75, shift_limit_x=(-0.0625, 0.0625), shift_limit_y=(-0.0625, 0.0625), scale_limit=(-0.19999999999999996, 0.19999999999999996), rotate_limit=(-30, 30), interpolation=1, border_mode=4, value=None, mask_value=None, rotate_method='largest_box'),
+], p=1.0, bbox_params=None, keypoint_params=None, additional_targets={})
+nc 512 Resize(size=512, interpolation=bilinear, max_size=None, antialias=False)
+augment None
+nc 512 Resize(size=512, interpolation=bilinear, max_size=None, antialias=False)
+augment None
+nc 512 Resize(size=512, interpolation=bilinear, max_size=None, antialias=False)
+Encoder channels: maxvit_tiny_tf_512.in1k [64, 64, 128, 256, 512]
+Decoder channels: [256, 128, 64, 32, 16]
+40 epochs
+KFold 1/10
+Epoch        loss          dice  score         lr       time
+Epoch  1.00  0.731  0.230  0.250 0.000 0.260  8.0e-04   1.1  16.6 min
+Epoch  2.00  0.240  0.230  0.264 0.548 0.520  8.0e-04   2.3  33.2 min
+Epoch  3.00  0.230  0.212  0.347 0.620 0.604  7.9e-04   3.4  49.8 min
+Epoch  4.00  0.226  0.215  0.341 0.618 0.603  7.8e-04   4.6  66.5 min
+Epoch  5.00  0.219  0.213  0.379 0.619 0.606  7.7e-04   5.8  83.1 min
+Epoch  6.00  0.218  0.202  0.372 0.643 0.629  7.6e-04   6.9  99.7 min
+Epoch  7.00  0.214  0.206  0.377 0.636 0.610  7.5e-04   8.1 116.4 min
+Epoch  8.00  0.212  0.204  0.387 0.645 0.627  7.3e-04   9.2 133.1 min
+Epoch  9.00  0.212  0.198  0.401 0.662 0.638  7.1e-04  10.4 149.8 min
+Epoch 10.00  0.209  0.199  0.388 0.655 0.623  6.9e-04  11.5 166.4 min
+Epoch 11.00  0.207  0.195  0.391 0.661 0.639  6.7e-04  12.7 183.0 min
+Epoch 12.00  0.205  0.195  0.394 0.660 0.641  6.4e-04  13.8 199.7 min
+Epoch 13.00  0.205  0.197  0.411 0.666 0.643  6.2e-04  15.0 216.3 min
+Epoch 14.00  0.204  0.200  0.387 0.659 0.644  5.9e-04  16.1 232.9 min
+Epoch 15.00  0.204  0.196  0.386 0.661 0.645  5.6e-04  17.3 249.6 min
+Epoch 16.00  0.201  0.191  0.415 0.678 0.660  5.3e-04  18.4 266.2 min
+Epoch 17.00  0.201  0.192  0.393 0.675 0.665  5.0e-04  19.6 282.9 min
+Epoch 18.00  0.199  0.190  0.406 0.679 0.669  4.7e-04  20.8 299.8 min
+Epoch 19.00  0.200  0.191  0.401 0.675 0.662  4.4e-04  21.9 316.7 min
+Epoch 20.00  0.198  0.191  0.409 0.674 0.667  4.1e-04  23.1 333.6 min
+Epoch 21.00  0.198  0.189  0.410 0.683 0.671  3.8e-04  24.3 350.5 min
+Epoch 22.00  0.197  0.188  0.415 0.683 0.674  3.5e-04  25.4 367.5 min
+Epoch 23.00  0.196  0.191  0.418 0.674 0.669  3.1e-04  26.6 384.4 min
+Epoch 24.00  0.194  0.189  0.407 0.686 0.673  2.8e-04  27.7 401.0 min
+Epoch 25.00  0.194  0.187  0.406 0.690 0.677  2.5e-04  28.9 417.6 min
+Epoch 26.00  0.194  0.188  0.422 0.684 0.678  2.2e-04  30.0 434.2 min
+Epoch 27.00  0.193  0.187  0.419 0.687 0.683  2.0e-04  31.2 450.8 min
+Epoch 28.00  0.191  0.186  0.430 0.689 0.684  1.7e-04  32.3 467.5 min
+Epoch 29.00  0.190  0.186  0.428 0.691 0.685  1.4e-04  33.5 484.1 min
+Epoch 30.00  0.190  0.186  0.425 0.692 0.686  1.2e-04  34.6 500.7 min
+Epoch 31.00  0.190  0.186  0.421 0.691 0.685  9.9e-05  35.8 517.3 min
+Epoch 32.00  0.189  0.185  0.425 0.692 0.688  7.9e-05  37.0 534.0 min
+Epoch 33.00  0.189  0.185  0.428 0.695 0.687  6.1e-05  38.1 550.9 min
+Epoch 34.00  0.187  0.185  0.425 0.695 0.691  4.6e-05  39.3 567.8 min
+Epoch 35.00  0.187  0.185  0.428 0.696 0.690  3.2e-05  40.4 584.7 min
+Epoch 36.00  0.187  0.185  0.430 0.697 0.689  2.1e-05  41.6 601.6 min
+Epoch 37.00  0.187  0.185  0.429 0.698 0.691  1.2e-05  42.8 618.5 min
+Epoch 38.00  0.186  0.185  0.430 0.696 0.691  6.0e-06  43.9 635.3 min
+Epoch 39.00  0.186  0.185  0.430 0.697 0.691  2.3e-06  45.1 651.9 min
+Epoch 40.00  0.186  0.185  0.431 0.696 0.691  1.0e-06  46.3 668.5 min
+Score 0.690796 with th 0.4800
+0.5 min and 5.8 MB
+experiments/maxvit_tiny_wd/model1.pytorch written
+ifold 2: val t 2.6 - 365.5
+augment Compose([
+  RandomRotate90(always_apply=False, p=1),
+  HorizontalFlip(always_apply=False, p=0.5),
+  ShiftScaleRotate(always_apply=False, p=0.75, shift_limit_x=(-0.0625, 0.0625), shift_limit_y=(-0.0625, 0.0625), scale_limit=(-0.19999999999999996, 0.19999999999999996), rotate_limit=(-30, 30), interpolation=1, border_mode=4, value=None, mask_value=None, rotate_method='largest_box'),
+], p=1.0, bbox_params=None, keypoint_params=None, additional_targets={})
+nc 512 Resize(size=512, interpolation=bilinear, max_size=None, antialias=False)
+augment None
+nc 512 Resize(size=512, interpolation=bilinear, max_size=None, antialias=False)
+augment None
+nc 512 Resize(size=512, interpolation=bilinear, max_size=None, antialias=False)
+Encoder channels: maxvit_tiny_tf_512.in1k [64, 64, 128, 256, 512]
+Decoder channels: [256, 128, 64, 32, 16]
+40 epochs
+KFold 2/10
+Epoch        loss          dice  score         lr       time
+Epoch  1.00  0.726  0.240  0.265 0.000 0.000  8.0e-04   1.1  16.6 min
+Epoch  2.00  0.237  0.229  0.276 0.443 0.535  8.0e-04   2.3  33.2 min
+Epoch  3.00  0.230  0.227  0.332 0.617 0.589  7.9e-04   3.4  49.8 min
+Epoch  4.00  0.224  0.212  0.385 0.634 0.608  7.8e-04   4.6  66.5 min
+Epoch  5.00  0.219  0.216  0.371 0.626 0.590  7.7e-04   5.7  83.1 min
+Epoch  6.00  0.216  0.220  0.380 0.633 0.609  7.6e-04   6.9  99.7 min
+Epoch  7.00  0.213  0.212  0.368 0.649 0.606  7.5e-04   8.0 116.3 min
+Epoch  8.00  0.211  0.205  0.406 0.657 0.632  7.3e-04   9.2 132.9 min
+Epoch  9.00  0.209  0.205  0.402 0.661 0.643  7.1e-04  10.3 149.5 min
+Epoch 10.00  0.209  0.204  0.390 0.661 0.631  6.9e-04  11.5 166.1 min
+Epoch 11.00  0.208  0.200  0.375 0.668 0.642  6.7e-04  12.6 182.7 min
+Epoch 12.00  0.206  0.201  0.417 0.672 0.644  6.4e-04  13.8 199.3 min
+Epoch 13.00  0.205  0.206  0.387 0.658 0.632  6.2e-04  14.9 215.9 min
+Epoch 14.00  0.202  0.201  0.406 0.673 0.653  5.9e-04  16.1 232.5 min
+Epoch 15.00  0.203  0.199  0.405 0.678 0.663  5.6e-04  17.2 249.1 min
+Epoch 16.00  0.201  0.198  0.421 0.678 0.662  5.3e-04  18.4 265.8 min
+Epoch 17.00  0.201  0.206  0.380 0.663 0.645  5.0e-04  19.6 282.6 min
+Epoch 18.00  0.199  0.196  0.404 0.681 0.654  4.7e-04  20.7 299.4 min
+Epoch 19.00  0.198  0.198  0.415 0.678 0.663  4.4e-04  21.9 316.1 min
+Epoch 20.00  0.197  0.196  0.428 0.678 0.671  4.1e-04  23.0 332.9 min
+Epoch 21.00  0.197  0.195  0.420 0.684 0.661  3.8e-04  24.2 349.6 min
+Epoch 22.00  0.196  0.195  0.430 0.685 0.674  3.5e-04  25.3 366.3 min
+Epoch 23.00  0.194  0.195  0.409 0.686 0.673  3.1e-04  26.5 382.9 min
+Epoch 24.00  0.194  0.193  0.428 0.690 0.681  2.8e-04  27.7 399.6 min
+Epoch 25.00  0.194  0.193  0.420 0.691 0.683  2.5e-04  28.8 416.3 min
+Epoch 26.00  0.194  0.192  0.424 0.695 0.682  2.2e-04  30.0 432.9 min
+Epoch 27.00  0.192  0.193  0.423 0.690 0.678  2.0e-04  31.1 449.6 min
+Epoch 28.00  0.192  0.192  0.431 0.695 0.681  1.7e-04  32.3 466.3 min
+Epoch 29.00  0.191  0.192  0.439 0.696 0.688  1.4e-04  33.4 482.9 min
+Epoch 30.00  0.190  0.191  0.428 0.696 0.684  1.2e-04  34.6 499.6 min
+Epoch 31.00  0.189  0.191  0.427 0.698 0.686  9.9e-05  35.7 516.3 min
+Epoch 32.00  0.189  0.191  0.428 0.698 0.686  7.9e-05  36.9 532.9 min
+Epoch 33.00  0.189  0.190  0.433 0.700 0.685  6.1e-05  38.0 549.5 min
+Epoch 34.00  0.187  0.191  0.437 0.700 0.687  4.6e-05  39.2 566.2 min
+Epoch 35.00  0.187  0.191  0.435 0.699 0.685  3.2e-05  40.3 582.8 min
+Epoch 36.00  0.186  0.191  0.436 0.700 0.687  2.1e-05  41.5 599.4 min
+Epoch 37.00  0.186  0.190  0.436 0.700 0.686  1.2e-05  42.6 616.1 min
+Epoch 38.00  0.185  0.190  0.435 0.700 0.686  6.0e-06  43.8 632.7 min
+Epoch 39.00  0.186  0.190  0.435 0.701 0.686  2.3e-06  44.9 649.4 min
+Epoch 40.00  0.185  0.190  0.437 0.700 0.686  1.0e-06  46.1 666.1 min
+Score 0.685945 with th 0.4700
+0.5 min and 5.8 MB
+experiments/maxvit_tiny_wd/model2.pytorch written
+ifold 3: val t 2.7 - 365.8
+augment Compose([
+  RandomRotate90(always_apply=False, p=1),
+  HorizontalFlip(always_apply=False, p=0.5),
+  ShiftScaleRotate(always_apply=False, p=0.75, shift_limit_x=(-0.0625, 0.0625), shift_limit_y=(-0.0625, 0.0625), scale_limit=(-0.19999999999999996, 0.19999999999999996), rotate_limit=(-30, 30), interpolation=1, border_mode=4, value=None, mask_value=None, rotate_method='largest_box'),
+], p=1.0, bbox_params=None, keypoint_params=None, additional_targets={})
+nc 512 Resize(size=512, interpolation=bilinear, max_size=None, antialias=False)
+augment None
+nc 512 Resize(size=512, interpolation=bilinear, max_size=None, antialias=False)
+augment None
+nc 512 Resize(size=512, interpolation=bilinear, max_size=None, antialias=False)
+Encoder channels: maxvit_tiny_tf_512.in1k [64, 64, 128, 256, 512]
+Decoder channels: [256, 128, 64, 32, 16]
+40 epochs
+KFold 3/10
+Epoch        loss          dice  score         lr       time
+Epoch  1.00  1.151  0.226  0.308 0.515 0.490  8.0e-04   1.2  16.8 min
+Epoch  2.00  0.230  0.218  0.354 0.585 0.539  8.0e-04   2.3  33.5 min
+Epoch  3.00  0.226  0.219  0.357 0.609 0.560  7.9e-04   3.5  50.2 min
+Epoch  4.00  0.224  0.227  0.358 0.630 0.610  7.8e-04   4.6  66.8 min
+Epoch  5.00  0.218  0.213  0.395 0.634 0.616  7.7e-04   5.7  83.4 min
+Epoch  6.00  0.217  0.209  0.383 0.647 0.633  7.6e-04   6.9 100.0 min
+Epoch  7.00  0.212  0.215  0.353 0.636 0.621  7.5e-04   8.0 116.6 min
+Epoch  8.00  0.213  0.209  0.384 0.640 0.619  7.3e-04   9.2 133.2 min
+Epoch  9.00  0.209  0.203  0.360 0.656 0.632  7.1e-04  10.3 149.8 min
+Epoch 10.00  0.210  0.203  0.389 0.659 0.635  6.9e-04  11.5 166.4 min
+Epoch 11.00  0.205  0.208  0.367 0.659 0.626  6.7e-04  12.6 183.0 min
+Epoch 12.00  0.207  0.201  0.408 0.664 0.650  6.4e-04  13.8 199.6 min
+Epoch 13.00  0.206  0.201  0.398 0.663 0.636  6.2e-04  14.9 216.2 min
+Epoch 14.00  0.202  0.199  0.397 0.668 0.647  5.9e-04  16.1 232.9 min
+Epoch 15.00  0.202  0.198  0.386 0.674 0.661  5.6e-04  17.2 249.5 min
+Epoch 16.00  0.201  0.197  0.431 0.679 0.671  5.3e-04  18.4 266.1 min
+Epoch 17.00  0.201  0.202  0.402 0.659 0.649  5.0e-04  19.5 282.8 min
+Epoch 18.00  0.200  0.194  0.411 0.683 0.667  4.7e-04  20.7 299.4 min
+Epoch 19.00  0.198  0.197  0.409 0.673 0.663  4.4e-04  21.8 316.0 min
+Epoch 20.00  0.196  0.195  0.413 0.682 0.656  4.1e-04  23.0 332.7 min
+Epoch 21.00  0.195  0.193  0.414 0.689 0.682  3.8e-04  24.1 349.3 min
+Epoch 22.00  0.195  0.194  0.417 0.685 0.666  3.5e-04  25.3 366.0 min
+Epoch 23.00  0.195  0.192  0.422 0.689 0.673  3.1e-04  26.5 382.6 min
+Epoch 24.00  0.193  0.193  0.411 0.689 0.673  2.8e-04  27.6 399.3 min
+Epoch 25.00  0.193  0.192  0.417 0.691 0.678  2.5e-04  28.8 416.0 min
+Epoch 26.00  0.191  0.190  0.433 0.696 0.679  2.2e-04  29.9 432.7 min
+Epoch 27.00  0.191  0.191  0.440 0.695 0.683  2.0e-04  31.1 449.3 min
+Epoch 28.00  0.190  0.191  0.431 0.694 0.682  1.7e-04  32.2 465.9 min
+Epoch 29.00  0.189  0.190  0.424 0.698 0.683  1.4e-04  33.4 482.6 min
+Epoch 30.00  0.188  0.190  0.427 0.699 0.682  1.2e-04  34.5 499.3 min
+Epoch 31.00  0.187  0.189  0.429 0.699 0.688  9.9e-05  35.7 516.0 min
+Epoch 32.00  0.188  0.190  0.433 0.700 0.682  7.9e-05  36.8 532.8 min
+Epoch 33.00  0.186  0.189  0.434 0.699 0.683  6.1e-05  38.0 549.5 min
+Epoch 34.00  0.185  0.189  0.436 0.701 0.686  4.6e-05  39.2 566.1 min
+Epoch 35.00  0.185  0.189  0.440 0.701 0.683  3.2e-05  40.3 582.8 min
+Epoch 36.00  0.185  0.190  0.436 0.701 0.683  2.1e-05  41.5 599.5 min
+Epoch 37.00  0.184  0.190  0.438 0.701 0.683  1.2e-05  42.6 616.1 min
+Epoch 38.00  0.184  0.189  0.438 0.701 0.685  6.0e-06  43.8 632.8 min
+Epoch 39.00  0.184  0.189  0.438 0.701 0.685  2.3e-06  44.9 649.4 min
+Epoch 40.00  0.184  0.189  0.439 0.701 0.685  1.0e-06  46.1 666.1 min
+Score 0.685285 with th 0.4600
+0.5 min and 5.8 MB
+experiments/maxvit_tiny_wd/model3.pytorch written
+ifold 4: val t 2.6 - 366.3
+augment Compose([
+  RandomRotate90(always_apply=False, p=1),
+  HorizontalFlip(always_apply=False, p=0.5),
+  ShiftScaleRotate(always_apply=False, p=0.75, shift_limit_x=(-0.0625, 0.0625), shift_limit_y=(-0.0625, 0.0625), scale_limit=(-0.19999999999999996, 0.19999999999999996), rotate_limit=(-30, 30), interpolation=1, border_mode=4, value=None, mask_value=None, rotate_method='largest_box'),
+], p=1.0, bbox_params=None, keypoint_params=None, additional_targets={})
+nc 512 Resize(size=512, interpolation=bilinear, max_size=None, antialias=False)
+augment None
+nc 512 Resize(size=512, interpolation=bilinear, max_size=None, antialias=False)
+augment None
+nc 512 Resize(size=512, interpolation=bilinear, max_size=None, antialias=False)
+Encoder channels: maxvit_tiny_tf_512.in1k [64, 64, 128, 256, 512]
+Decoder channels: [256, 128, 64, 32, 16]
+40 epochs
+KFold 4/10
+Epoch        loss          dice  score         lr       time
+Epoch  1.00  0.935  0.229  0.300 0.592 0.540  8.0e-04   1.1  16.6 min
+Epoch  2.00  0.236  0.223  0.362 0.623 0.602  8.0e-04   2.3  33.2 min
+Epoch  3.00  0.228  0.204  0.368 0.632 0.584  7.9e-04   3.4  49.9 min
+Epoch  4.00  0.222  0.202  0.356 0.646 0.601  7.8e-04   4.6  66.5 min
+Epoch  5.00  0.219  0.202  0.384 0.656 0.615  7.7e-04   5.7  83.1 min
+Epoch  6.00  0.218  0.197  0.386 0.663 0.626  7.6e-04   6.9  99.7 min
+Epoch  7.00  0.215  0.199  0.392 0.662 0.639  7.5e-04   8.0 116.3 min
+Epoch  8.00  0.214  0.195  0.391 0.664 0.632  7.3e-04   9.2 133.0 min
+Epoch  9.00  0.211  0.195  0.418 0.672 0.638  7.1e-04  10.4 149.6 min
+Epoch 10.00  0.208  0.196  0.402 0.667 0.640  6.9e-04  11.5 166.2 min
+Epoch 11.00  0.211  0.193  0.398 0.667 0.632  6.7e-04  12.6 182.8 min
+Epoch 12.00  0.207  0.191  0.406 0.680 0.657  6.4e-04  13.8 199.4 min
+Epoch 13.00  0.207  0.193  0.403 0.669 0.642  6.2e-04  14.9 216.0 min
+Epoch 14.00  0.205  0.189  0.409 0.678 0.648  5.9e-04  16.1 232.7 min
+Epoch 15.00  0.206  0.189  0.407 0.684 0.650  5.6e-04  17.3 249.3 min
+Epoch 16.00  0.204  0.188  0.410 0.679 0.645  5.3e-04  18.4 266.0 min
+Epoch 17.00  0.203  0.189  0.418 0.685 0.659  5.0e-04  19.6 282.6 min
+Epoch 18.00  0.203  0.187  0.428 0.686 0.671  4.7e-04  20.7 299.2 min
+Epoch 19.00  0.202  0.186  0.421 0.692 0.664  4.4e-04  21.9 315.8 min
+Epoch 20.00  0.201  0.185  0.413 0.697 0.666  4.1e-04  23.0 332.5 min
+Epoch 21.00  0.201  0.185  0.432 0.694 0.667  3.8e-04  24.2 349.1 min
+Epoch 22.00  0.198  0.184  0.415 0.695 0.668  3.5e-04  25.3 365.7 min
+Epoch 23.00  0.198  0.184  0.419 0.697 0.672  3.1e-04  26.5 382.3 min
+Epoch 24.00  0.197  0.183  0.428 0.698 0.674  2.8e-04  27.6 399.0 min
+Epoch 25.00  0.195  0.183  0.434 0.702 0.681  2.5e-04  28.8 415.7 min
+Epoch 26.00  0.195  0.183  0.436 0.700 0.679  2.2e-04  29.9 432.3 min
+Epoch 27.00  0.194  0.182  0.441 0.705 0.681  2.0e-04  31.1 449.0 min
+Epoch 28.00  0.192  0.181  0.437 0.708 0.685  1.7e-04  32.2 465.7 min
+Epoch 29.00  0.192  0.183  0.415 0.703 0.684  1.4e-04  33.4 482.4 min
+Epoch 30.00  0.193  0.181  0.437 0.705 0.682  1.2e-04  34.5 499.1 min
+Epoch 31.00  0.192  0.181  0.445 0.709 0.685  9.9e-05  35.7 515.8 min
+Epoch 32.00  0.191  0.180  0.443 0.710 0.688  7.9e-05  36.9 532.4 min
+Epoch 33.00  0.190  0.181  0.442 0.711 0.687  6.1e-05  38.0 549.1 min
+Epoch 34.00  0.190  0.180  0.447 0.709 0.692  4.6e-05  39.2 565.7 min
+Epoch 35.00  0.189  0.180  0.443 0.711 0.689  3.2e-05  40.3 582.4 min
+Epoch 36.00  0.188  0.180  0.444 0.712 0.690  2.1e-05  41.5 599.0 min
+Epoch 37.00  0.189  0.180  0.441 0.711 0.691  1.2e-05  42.6 615.7 min
+Epoch 38.00  0.189  0.180  0.443 0.712 0.691  6.0e-06  43.8 632.4 min
+Epoch 39.00  0.189  0.180  0.442 0.712 0.691  2.3e-06  44.9 649.0 min
+Epoch 40.00  0.189  0.180  0.441 0.712 0.692  1.0e-06  46.1 665.7 min
+Score 0.691707 with th 0.4700
+0.5 min and 5.8 MB
+experiments/maxvit_tiny_wd/model4.pytorch written
+Total time: 3337.13 min
+Final score: 0.689147 ± 0.002918
