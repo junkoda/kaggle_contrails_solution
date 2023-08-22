@@ -136,7 +136,8 @@ def main():
     # Output directory
     data_dir = settings['DATA_DIR']
     if not os.path.exists(data_dir):
-        raise FileNotFoundError(data_dir)
+        print('Data directory %s does not exist' % data_dir)
+        raise FileNotFoundError
 
     # Input dir
     input_dir = settings['INPUT_DIR']

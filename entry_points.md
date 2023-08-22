@@ -28,9 +28,8 @@ $ python3 src/script/convert_data_compact4.py validation
 ```
 
 - Read data from `INPUT_DIR/google-research-identify-contrails-reduce-global-warming`
-- Output HDF5
+- Output HDF5 to `DATA_DIR/compact4`
 
-Output: <DATA_DIR>/compact4
 
 # 2. Train
 
@@ -44,7 +43,7 @@ The run is checked with GPU RTX3090 (24GB RAM); 16GB is insufficient.
 
 ## Full training
 
-The final model requires about 40GB RAM (24 GB is insufficient).
+Training the final models requires about 40GB RAM (24 GB is insufficient).
 The required RAM can be reduced with smaller batch size, but the model performance could be different.
 
 ```bash

@@ -25,7 +25,7 @@ See `notebook/` for the weights.
 
 ### unet5
 
-The base single-time U-Net model with 256 or 512 input image.
+The base single-time U-Net model with 256 or 512 input image size in each dimension.
 
 ### unet1024
 
@@ -49,7 +49,7 @@ The inference code and model weights are online on Kaggle:
 
 - entry_points.md: Instructions how to train the model
 - SETTINGS.json: Directory configuration for training
-- Training the final model would take 40 hours per fold with A100 GPU (40GB RAM)
+- Training the final model would take 30 hours per fold with A100 GPU (40GB RAM)
 
 
 ## Software used
