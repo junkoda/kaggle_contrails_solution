@@ -53,7 +53,7 @@ def evaluate(model, loader_val, *, th=0.4):
             y = None
 
         # label is ground-truth segmentation mask for score (always 256 x 256 binary)
-        label = d['label'].to(device)   
+        label = d['label'].to(device)
         batch_size = len(x)
 
         # Predict
@@ -257,9 +257,9 @@ for ifold, (idx_train, idx_val) in enumerate(kfold.split(data.df)):
                     dt_val += val['dt'] + test['dt']
 
                     print('Epoch %5.2f %6.3f %6.3f  %.3f %.3f %.3f  %5.1e %5.1f %5.1f min' % (ep,
-                        10 * loss_train, 10 * val['loss'],
-                        val['dice'], val['score'], test['score'],
-                        lr, dt_val / 60, dt / 60))
+                          10 * loss_train, 10 * val['loss'],
+                          val['dice'], val['score'], test['score'],
+                          lr, dt_val / 60, dt / 60))
 
                     # Reset train loss
                     n_sum = 0
@@ -308,4 +308,3 @@ if len(final_scores) >= 4:
 ofilename = '%s/log.pkl' % odir
 with open(ofilename, 'wb') as f:
     pickle.dump(log, f)
-

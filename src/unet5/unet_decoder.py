@@ -1,4 +1,5 @@
 """
+Modified the segmentation_model_pytorch U-Net decoder
 https://github.com/qubvel/segmentation_models.pytorch
 """
 import torch

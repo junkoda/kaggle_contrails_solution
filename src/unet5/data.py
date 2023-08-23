@@ -7,11 +7,12 @@ import torch.nn.functional as F
 import torchvision.transforms as T
 import albumentations as A
 from grid import create_grid
+from typing import Optional
 
 
 # Augmentation
 def augmentation(aug: str):
-    if aug == 'd4':
+    if aug == 'd4':  # Dihedral group D4
         return A.Compose([
             A.RandomRotate90(p=1),
             A.HorizontalFlip(p=0.5),
@@ -42,18 +43,17 @@ def ash_color(x):
     b = rescale_range(x[1], 243, 303)      # ch 6
 
     x = torch.stack([r, g, b], axis=0)
-    x = 1 - x
+    x = 1 - x  # does not matter. I drop clip [0, 1] but do not see difference.
 
     return x
 
 
 class Dataset(torch.utils.data.Dataset):
     """
-    d = dataset[i]
-    x: image (C, H, W)
-    y: segmentation mask (1, H, W)
+    Dataset for DataLoader
+    d: dict = dataset[i]
     """
-    def __init__(self, df, cfg, *, augment=False):
+    def __init__(self, df: pd.DataFrame, cfg: dict, *, augment=False):
         self.df = df
         self.augment = None
         if augment and cfg['data']['augment']:
@@ -62,7 +62,9 @@ class Dataset(torch.utils.data.Dataset):
         self.annotation_mean = cfg['data']['annotation_mean']
         assert self.annotation_mean in ['mix', True, False]
 
+        # Number of pixels per dimension for input x and symmetric target y_sym (256 or 512)
         nc = cfg['data']['resize']
+
         # Resize input
         self.resize = nn.Identity() if nc == 256 else T.Resize(nc, antialias=False)
 
@@ -72,9 +74,11 @@ class Dataset(torch.utils.data.Dataset):
         self.y_sym_mode = cfg['data']['y_sym_mode']
         assert self.y_sym_mode in ['bilinear', 'nearest']
 
+        # Probability of augmentation (used 0.95)
+        # Since asym_conv is trained with 1 - augment_prob, do not set this to 1.
         self.augment_prob = cfg['data']['augment_prob']
 
-    def __len__(self):
+    def __len__(self) -> int:
         return len(self.df)
 
     def __getitem__(self, i):
@@ -108,6 +112,7 @@ class Dataset(torch.utils.data.Dataset):
         x = ash_color(x)
         x = self.resize(x)
 
+        # Sample shifted y_sym from y
         if y is not None:
             y_sym = F.grid_sample(y.unsqueeze(0), self.grid,
                                   mode=self.y_sym_mode, padding_mode='border',
@@ -126,20 +131,36 @@ class Dataset(torch.utils.data.Dataset):
             x = torch.from_numpy(aug['image'].transpose(2, 0, 1))     # => (C, H, W)
             y_sym = torch.from_numpy(aug['mask'].transpose(2, 0, 1))  # array (1, 256, 256)
 
+        # Return value
         d = {'x': x,
              'w': np.float32(w_original)}  # 1 if y is original not augmented
 
+        # y is soft label for loss
         if y is not None:
             d['y_sym'] = y_sym
             d['y'] = y
 
+        # Label is ground truth for score
         if label is not None:
             d['label'] = label
         return d
 
 
 class Data:
-    def __init__(self, data_type, data_dir, *, debug=False):
+    """
+    Wrapper class for Dataset and DataLoader
+    """
+    def __init__(self, data_type: str, data_dir, *, debug=False):
+        """
+        Args:
+          data_type (str): train or validation
+          data_dir (str):  DATA_DIR in SETTINGS.json
+          debug (bool): Use small subset of data if True
+
+        Input:
+          data_dir/compact4/<data_type>/*.h5, using filenames in,
+          data_dir/<data_type>.csv
+        """
         # Load filename list
         df = pd.read_csv('%s/%s.csv' % (data_dir, data_type))
         if debug:
@@ -147,10 +168,13 @@ class Data:
 
         self.df = df
 
-    def __len__(self):
+    def __len__(self) -> int:
         return len(self.df)
 
-    def dataset(self, idx, cfg, augment, *, positive_only=False):
+    def dataset(self, idx: Optional[np.ndarray], cfg: dict, augment: bool, *, positive_only=False):
+        """
+        Return Dataset for DataLoader
+        """
         df = self.df.iloc[idx] if idx is not None else self.df
 
         if positive_only:
@@ -159,10 +183,20 @@ class Data:
 
         return Dataset(df, cfg, augment=augment)
 
-    def loader(self, idx, cfg, *, augment=False, shuffle=False, drop_last=False):
+    def loader(self, idx: Optional[np.ndarray], cfg: dict, *, augment=False, shuffle=False, drop_last=False):
+        """
+        Return DataLoader for minibatch loop
+
+        Args:
+          idx (Optional[array]): indices for subset, e.g., idx_train, idx_train from kfold.split(),
+                                 None for all data.
+          cfg (dict): config for loader
+          augment (bool): apply augmentation (True for training, False for validataion)
+          suffle, drop_last (bool): options for DataLoader
+        """
         batch_size = cfg['train']['batch_size']
         num_workers = cfg['train']['num_workers']
-        positive_only = cfg['data']['positive_only']
+        positive_only = cfg['data']['positive_only']  # Train with positive data only (at least one positive pixel)
 
         ds = self.dataset(idx, cfg, augment, positive_only=positive_only)
         return torch.utils.data.DataLoader(ds,

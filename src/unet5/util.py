@@ -26,7 +26,7 @@ def get_range(ra: str, n: int) -> Tuple[int, int]:
         raise ValueError('Failed to parse range: {}'.format(ra))
 
 
-def as_list(s, *, dtype=int):
+def as_list(s: str, *, dtype=int):
     """
     Parse string of numbers to list of numbers
 

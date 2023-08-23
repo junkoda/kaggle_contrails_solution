@@ -16,7 +16,7 @@ model:
 
 kfold:
   k: 10
-  folds: 0 # 0,1,2,3,4
+  folds: 0  # 0,1,2,3,4
 
 train:
   weight_decay: 1e-2

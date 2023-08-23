@@ -1,5 +1,5 @@
 """
-UNet with single timestep 3-channel image
+U-Net with single timestep 3-channel image
 """
 import numpy as np
 import os
@@ -147,7 +147,7 @@ print('folds', folds, '/', nfolds)
 loss_type = cfg['train']['loss']
 criterion = losses.BCELoss()
 
-# Dice score for evaluation
+# Dice score for evaluation metric
 dice = smp.losses.DiceLoss('binary', from_logits=True)
 
 weight_decay = float(cfg['train']['weight_decay'])
@@ -155,8 +155,8 @@ print('weight_decay', weight_decay)
 
 augment_fraction = cfg['data']['augment_prob']
 steps_per_epoch = cfg['val']['per_epoch']  # number of validation per epoch (int >= 1)
-th_val = cfg['val']['th']
-th_test = cfg['test']['th']
+th_val = cfg['val']['th']     # threshold for oof val score
+th_test = cfg['test']['th']   # for validation score
 print('val threshold %.2f %.2f' % (th_val, th_test))
 
 #

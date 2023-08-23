@@ -7,6 +7,10 @@ from unet_decoder import UnetDecoder
 
 
 def _check_reduction(reduction_factors):
+    """
+    Assume features are reduced by factor of 2 at each stage.
+    For example, convnext start with stride=4 and does not satisfy this condition.
+    """
     r_prev = 1
     for r in reduction_factors:
         if r / r_prev != 2:
@@ -14,7 +18,14 @@ def _check_reduction(reduction_factors):
         r_prev = r
 
 
-def get_asym_conv(nc):
+def get_asym_conv(nc: int):
+    """
+    Tiny convolution that maps y_sym to y_pred.
+    Also reduce 512x512 y_sym_pred to 256x256 y_pred if y_sym is 512x512.
+
+    Arg:
+      nc (int): size of y_sym; resize = 256 or 512. 
+    """
     if nc == 256:
         hidden_size = 9
         asym_conv = nn.Sequential(
@@ -36,8 +47,9 @@ def get_asym_conv(nc):
 
 
 class Model(nn.Module):
+    # The U-Net model
     # See also TimmUniversalEncoder in segmentation_models_pytorch
-    def __init__(self, cfg, pretrained=True):
+    def __init__(self, cfg: dict, pretrained=True):
         super().__init__()
         name = cfg['model']['encoder']
         dropout = cfg['model']['dropout']

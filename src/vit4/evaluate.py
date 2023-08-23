@@ -15,13 +15,12 @@ from sklearn.model_selection import KFold
 
 import torch
 import torch.nn as nn
-import torchvision.transforms
 import segmentation_models_pytorch as smp
 
-from contraillib import slack, util
-from contraillib.lr_scheduler import Scheduler
 from data import Data
 from model import Model
+from lr_scheduler import Scheduler
+import util
 import score
 import losses
 
@@ -213,10 +212,10 @@ for ifold, (idx_train, idx_val) in enumerate(kfold.split(data.df)):
 
         optimizer.zero_grad()
         for ibatch, d in enumerate(loader_train):
-            x = d['x'].to(device)  # input image
-            y = d['y'].to(device)  # segmentation label
+            x = d['x'].to(device)          # input image
+            y = d['y'].to(device)          # segmentation label
             y_sym = d['y_sym'].to(device)  # symmetric label
-            w = d['w'].to(device)  # w=1 for symmetric data, 0 for asymmetric label y
+            w = d['w'].to(device)          # w=1 if x is not augmented
             batch_size = len(x)
 
             # Predict
@@ -232,7 +231,7 @@ for ifold, (idx_train, idx_val) in enumerate(kfold.split(data.df)):
             # Backpropagate
             loss.backward()
 
-            # Optimizer step
+            # Optimizer step with gradient accumulation
             ep = iepoch + (ibatch + 1) / nbatch
             if (ibatch + 1) % accumulate == 0:
                 istep += 1
@@ -317,6 +316,3 @@ ofilename = '%s/log.pkl' % odir
 with open(ofilename, 'wb') as f:
     pickle.dump(log, f)
 
-# Slack message
-if not debug and dt > 3600:
-    slack.notify('vit4 done: %.2f min' % (dt / 60))

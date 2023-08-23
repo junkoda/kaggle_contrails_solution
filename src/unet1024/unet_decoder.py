@@ -42,7 +42,7 @@ class DecoderBlock(nn.Module):
     def forward(self, x, skip=None):
         if skip is None:
             return x  # adhoc change for 1024 input -> 512 output
-        
+
         x = F.interpolate(x, scale_factor=2, mode='nearest')
         if skip is not None:
             skip = self.dropout_skip(skip)

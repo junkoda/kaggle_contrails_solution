@@ -32,7 +32,7 @@ import numpy as np
 import pandas as pd
 import os
 import glob
-import h5py  # type: ignore  # mypy does not recognize h5py
+import h5py
 import json
 import argparse
 from tqdm.auto import tqdm

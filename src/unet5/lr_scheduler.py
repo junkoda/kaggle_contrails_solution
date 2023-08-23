@@ -24,19 +24,29 @@ class _Const:
         epoch_end: 2
         (optional) lr: 2e-3
     """
-    def __init__(self, lr, epoch, params):
+    def __init__(self, lr: float, epoch: float, params: dict):
+        """
+        Args
+          lr (float): current learning rate
+          epoch (float): current epoch
+          params (dict): schedule parameters
+        """
         self.start = epoch
         self.end = params['epoch_end']
         self.lr = float(params.get('lr', lr))
         assert self.start < self.end
 
-    def __contains__(self, epoch):
+    def __contains__(self, epoch) -> bool:
+        # Return if the epoch is in the range this schedule is supposed to work
         return self.start <= epoch < self.end
 
-    def __call__(self, epoch):
+    def __call__(self, epoch: float) -> float:
+        # Return learning rate at given epoch
         return self.lr
 
     def next(self):
+        # Return epoch and lr at the end of this schedule,
+        # passing them to the next scheduler
         return self.end, self.lr
 
 
@@ -47,17 +57,17 @@ class _Linear:
         lr_end: 2e-3
         (optional) lr_start: 5e-5
     """
-    def __init__(self, lr, epoch, params):
+    def __init__(self, lr: float, epoch: float, params: dict):
         self.start = epoch
         self.end = params['epoch_end']
         self.lr_start = float(params.get('lr_start', lr))
         self.lr_end = float(params['lr_end'])
         assert self.start < self.end
 
-    def __contains__(self, epoch):
+    def __contains__(self, epoch: float) -> float:
         return self.start <= epoch < self.end
 
-    def __call__(self, epoch):
+    def __call__(self, epoch: float) -> float:
         x = (epoch - self.start) / (self.end - self.start)
         return self.lr_start + x * (self.lr_end - self.lr_start)
 
@@ -73,7 +83,7 @@ class _Cosine:
         (optional): lr_start 2e-3
         (optional): cycle: 180 (360 for full period of cosine)
     """
-    def __init__(self, lr, epoch, params):
+    def __init__(self, lr: float, epoch: float, params: dict):
         self.start = epoch
         self.end = params['epoch_end']
         self.lr_start = float(params.get('lr_start', lr))
@@ -81,27 +91,29 @@ class _Cosine:
         self.fac = math.pi * (float(params.get('cycle', 180)) / 180)
         assert self.start < self.end
 
-    def __contains__(self, epoch):
+    def __contains__(self, epoch) -> bool:
         return self.start <= epoch < self.end
 
-    def __call__(self, epoch):
+    def __call__(self, epoch: float) -> float:
         x = (epoch - self.start) / (self.end - self.start)
         amp = 0.5 * (self.lr_start - self.lr_end)
         return self.lr_end + amp * (1 + math.cos(self.fac * x))
 
-    def next(self):
+    def next(self) -> tuple:
         return self.end, self.lr_end
 
 
 class _ReduceOnPlateau:
     """
+    Reduce learning rate by a given factor when loss is not improving
+
     - reduce_on_plateau:
         lr_start: 1e-2
         epoch_end: 4
         patience: 2      # do not reduce lr for 2 times if loss does not improve
         factor: 0.5      # multiply lr by factor
     """
-    def __init__(self, lr, epoch, params):
+    def __init__(self, lr: float, epoch: float, params: dict):
         self.start = epoch
         self.end = params['epoch_end']
         self.lr_start = float(params.get('lr_start', lr))
@@ -117,16 +129,19 @@ class _ReduceOnPlateau:
         self.count_no_improvement = 0
         assert self.start < self.end
 
-    def __contains__(self, epoch):
+    def __contains__(self, epoch: float) -> bool:
         return self.start <= epoch < self.end
 
-    def __call__(self, epoch):
+    def __call__(self, epoch: float) -> float:
         return self.lr
 
-    def next(self):
+    def next(self) -> tuple:
         return self.end, self.lr_end
 
-    def update_loss(self, epoch, loss):
+    def update_loss(self, epoch: float, loss: float) -> None:
+        """
+        Update loss and update learning rate depending on the loss
+        """
         eps = 1e-4
         if loss < (1 - eps) * self.best_loss:
             self.best_loss = loss
@@ -155,7 +170,7 @@ class Scheduler(object):
         self._init_schedules(cfg)
         self.step(0)
 
-    def __len__(self):
+    def __len__(self) -> int:
         return math.ceil(self.epoch_end)
 
     def _init_schedules(self, learning_rate: list[dict]):
@@ -207,10 +222,10 @@ class Scheduler(object):
 
         return lr
 
-    def get_last_lr(self):
+    def get_last_lr(self) -> float:
         return self._last_lr
 
-    def update_loss(self, epoch: float, loss: float):
+    def update_loss(self, epoch: float, loss: float) -> None:
         for schedule in self.schedules:
             if epoch in schedule and isinstance(schedule, _ReduceOnPlateau):
                 return schedule.update_loss(epoch, loss)

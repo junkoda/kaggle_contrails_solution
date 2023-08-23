@@ -36,8 +36,7 @@ def get_asym_conv(nc):
 
 
 class Model(nn.Module):
-    # See also TimmUniversalEncoder
-    # x (input) is added to features?
+    # See also TimmUniversalEncoder in segmentation_models_pytorch
     def __init__(self, cfg, pretrained=True):
         super().__init__()
         name = cfg['model']['encoder']
